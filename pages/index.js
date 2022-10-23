@@ -4,13 +4,10 @@ import styles from '../styles/Home.module.css'
 import PostCard from '../components/PostCard'
 import PostWidget from '../components/PostWidget'
 import Categories from '../components/Categories'
+import { getPosts } from '../services'
 
-const posts = [
-  {title: 'React new version tutorial', excerpt: 'Learn Reeact with the latest tutorial'},
-  {title: 'NextJS tutorial hands-on', excerpt: 'Learn NextJS with this new hands-on tutorial'}
-]
 
-export default function Home() {
+export default function Home({posts}) {
   return (
     <div className="container mx-auto px-10 mb-8">
       <Head>
@@ -38,4 +35,12 @@ export default function Home() {
 
     </div>
   )
+}
+
+export async function getStaticProps() {
+  const posts = (await getPosts()) || []
+
+  return {
+    props: {posts}
+  }
 }
